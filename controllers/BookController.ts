@@ -135,3 +135,42 @@ export const deleteBook = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getBook = async (req: Request, res: Response) => {
+  try {
+    const BookData = req.params.bookId;
+    if (BookData) {
+      let book = await Book.findOne({
+        _id: BookData,
+      });
+      if (!book) {
+        return res.status(401).json({
+          errors: [
+            {
+              msg: "Book does not exists!",
+            },
+          ],
+        });
+      }
+      res.status(200).json({
+        book: book,
+      });
+    } else {
+      return res.status(401).json({
+        errors: [
+          {
+            msg: "Please passed to the bookId in Params",
+          },
+        ],
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      errors: [
+        {
+          msg: err,
+        },
+      ],
+    });
+  }
+};

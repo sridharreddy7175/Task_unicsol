@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createBook,
   deleteBook,
+  getBook,
   getBooks,
   updateBook,
 } from "../controllers/BookController";
@@ -24,5 +25,6 @@ bookRoutes.put(
 );
 bookRoutes.get("/books", verifyToken, getBooks);
 bookRoutes.delete("/book/:bookId", verifyToken, deleteBook);
+bookRoutes.get('/book/:bookId',verifyToken,getBook)
 
 export default bookRoutes;
